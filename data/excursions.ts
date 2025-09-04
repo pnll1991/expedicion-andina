@@ -5,7 +5,7 @@ export const allExcursions = [
     desc: "Rema por aguas cristalinas rodeado de picos impresionantes.",
     duration: "Día Completo",
     price: "$120",
-    img: "/kayak-lago-montana-excursion.jpg",
+    img: "/kayak-lago-montana-excursion.webp",
     details: {
       dates: "Fechas disponibles todo el año. Consultar disponibilidad.",
       includes: [
@@ -37,7 +37,7 @@ export const allExcursions = [
     desc: "Explora senderos ocultos y descubre la diversa flora y fauna.",
     duration: "4 Horas",
     price: "$75",
-    img: "/caminata-bosque-alpino-excursion.jpg",
+    img: "/caminata-bosque-alpino-excursion.webp",
     details: {
       dates: "Salidas diarias, consultar horarios.",
       includes: ["Guía de trekking experimentado", "Bastones de trekking (opcional)", "Agua y barra energética"],
@@ -64,7 +64,7 @@ export const allExcursions = [
     desc: "Ponte a prueba y sé recompensado con una vista inolvidable del atardecer.",
     duration: "3 Horas",
     price: "$90",
-    img: "/escalada-atardecer-excursion.jpg",
+    img: "/escalada-atardecer-excursion.webp",
     details: {
       dates: "Salidas al atardecer, consultar horarios según estación.",
       includes: [
@@ -96,7 +96,7 @@ export const allExcursions = [
     desc: "Una aventura transandina con trekking, paisajes frondosos y cultura local.",
     duration: "5-6 Días",
     price: "$100.000 ARS",
-    img: "/cascada-region-maule-chile.jpg",
+    img: "/cascada-region-maule-chile.webp",
     details: {
       dates: [
         "24 al 28 de diciembre",
@@ -123,7 +123,7 @@ export const allExcursions = [
         accommodation: "$13.000 CLP por noche (estimado), a dividir",
         notIncluded: "No incluye comidas, combustible ni ingresos a parques (bajo costo)",
         preventa: "Preventa hasta el 31 de agosto",
-        contado: "Contado: $100.000 ARS",
+        contado: "$100.000 ARS",
         cuotas: "En cuotas: 5x20 USD (u otra combinación)",
       },
       whatToBring: [
@@ -147,7 +147,7 @@ export const allExcursions = [
     desc: "Explora el origen del río Atuel en una aventura de trekking o cabalgata en la cordillera mendocina.",
     duration: "3 Días / 2 Noches",
     price: "Desde $300.000 ARS",
-    img: "/naciente-rio-atuel-cascada.jpg",
+    img: "/naciente-rio-atuel-cascada.webp",
     details: {
       dates: "21 al 23 de febrero",
       modalities: ["Trekking asistido", "Cabalgata completa"],
@@ -198,7 +198,7 @@ export const allExcursions = [
     desc: "Una expedición histórica al sitio del accidente del vuelo 571, conocido como 'El Milagro de los Andes'.",
     duration: "3 Días / 2 Noches",
     price: "Desde $400.000 ARS",
-    img: "/grupo-avion-uruguayos-andes.jpg",
+    img: "/grupo-avion-uruguayos-andes.webp",
     details: {
       dates: "23 al 25 de enero (3 días / 2 noches)",
       modalities: ["Trekking", "Cabalgata"],
@@ -214,7 +214,7 @@ export const allExcursions = [
       characteristics: [
         "Salida desde San Rafael hacia El Sosneado (150 km de ruta + 65 km de ripio)",
         "Recorrido en plena cordillera: cerro Sosneado, volcán Overo, Risco Plateado, arroyos y montañas",
-        "Visita al sitio histórico del accidente de 1972 (“El Milagro de los Andes”)",
+        "Visita al sitio histórico del accidente de 1972",
         "Trekking: 50 km en total, 1.300 m de desnivel (dificultad física media-alta, técnica baja)",
         "Cabalgata: dificultad física baja-media, técnica baja-media (según experiencia)",
       ],
@@ -254,7 +254,7 @@ export const allExcursions = [
     desc: "Una expedición a la impresionante Laguna Turquesa, pasando por cerros y valles cordilleranos.",
     duration: "3 Días / 2 Noches",
     price: "Desde $200.000 ARS",
-    img: "/laguna-turquesa-malargue-reflejo.jpg",
+    img: "/laguna-turquesa-malargue-reflejo.webp",
     details: {
       dates: [
         "6 al 8 de diciembre 2025",

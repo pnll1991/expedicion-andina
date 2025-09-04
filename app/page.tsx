@@ -1,6 +1,6 @@
 "use client"
 
-import { useRef, useState, useEffect } from "react"
+import { useRef } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
@@ -8,21 +8,9 @@ import { Card, CardContent } from "@/components/ui/card"
 import { MapPinIcon, CalendarIcon, UsersIcon, ChevronDownIcon, ChevronUpIcon } from "lucide-react"
 import { motion, useScroll, useTransform, useInView } from "framer-motion"
 import { allExcursions } from "@/data/excursions"
-import { HeroSkeleton } from "@/components/skeletons/hero-skeleton"
-import { ExcursionCardSkeleton } from "@/components/skeletons/excursion-card-skeleton"
-import { AboutSkeleton } from "@/components/skeletons/about-skeleton"
 
 export default function HomePage() {
-  const [isLoading, setIsLoading] = useState(true)
-
-  useEffect(() => {
-    // Simular carga inicial
-    const timer = setTimeout(() => {
-      setIsLoading(false)
-    }, 1500)
-
-    return () => clearTimeout(timer)
-  }, [])
+  /*—  Bloquear scroll cuando el menú mobile está abierto —*/
 
   /*— Hero —*/
   const subtitle = "Tu puerta de entrada a la aventura: montañismo, trekking, y cursos especializados."
@@ -67,33 +55,6 @@ export default function HomePage() {
     (x) => !["kayak-lago-montana", "caminata-bosque-alpino", "escalada-atardecer"].includes(x.slug),
   )
 
-  if (isLoading) {
-    return (
-      <div className="flex min-h-dvh flex-col bg-brand-light-sand">
-        <main className="flex-1">
-          <HeroSkeleton />
-
-          {/* Excursiones Skeleton */}
-          <section className="bg-white py-16 md:py-24">
-            <div className="container px-4 md:px-6">
-              <div className="mb-12 space-y-3 text-center">
-                <div className="h-10 w-80 mx-auto bg-gray-200 animate-pulse rounded-md" />
-                <div className="h-6 w-96 mx-auto bg-gray-200 animate-pulse rounded-md" />
-              </div>
-              <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-                {[1, 2, 3, 4].map((item) => (
-                  <ExcursionCardSkeleton key={item} />
-                ))}
-              </div>
-            </div>
-          </section>
-
-          <AboutSkeleton />
-        </main>
-      </div>
-    )
-  }
-
   return (
     <div className="flex min-h-dvh flex-col bg-brand-light-sand">
       <main className="flex-1">
@@ -106,13 +67,13 @@ export default function HomePage() {
             className="absolute inset-0"
           >
             <Image
-              src="/hero-montanas-nubladas-patagonia.jpg"
+              src="/hero-montanas-nubladas-patagonia.webp"
               alt="Impresionantes montañas de la Patagonia"
               fill
               priority
               sizes="100vw"
               className="object-cover"
-              quality={75}
+              quality={85}
             />
           </motion.div>
           <div className="absolute inset-0 bg-black/40" />
@@ -146,12 +107,9 @@ export default function HomePage() {
               <Button
                 asChild
                 size="lg"
-                className="relative overflow-hidden bg-gradient-to-r from-brand-sky-blue to-brand-deep-teal text-white font-bold px-8 py-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 hover:from-brand-deep-teal hover:to-brand-sky-blue border-0"
+                className="bg-white text-brand-deep-teal hover:bg-brand-light-sand transition-colors duration-200 px-8 py-4 text-lg font-semibold border-0 shadow-none hover:shadow-none"
               >
-                <Link href="#excursions">
-                  <span className="relative z-10">Explorar Excursiones</span>
-                  <div className="absolute inset-0 bg-white/20 opacity-0 hover:opacity-100 transition-opacity duration-300" />
-                </Link>
+                <Link href="#excursions">Explorar Excursiones</Link>
               </Button>
             </motion.div>
           </div>
@@ -227,11 +185,9 @@ export default function HomePage() {
 
                       <Button
                         asChild
-                        className="w-full relative overflow-hidden bg-gradient-to-r from-transparent to-transparent border-2 border-brand-deep-teal text-brand-deep-teal font-semibold py-3 rounded-xl hover:bg-gradient-to-r hover:from-brand-deep-teal hover:to-brand-sky-blue hover:text-white hover:border-transparent transition-all duration-300 transform hover:scale-[1.02] shadow-sm hover:shadow-md"
+                        className="w-full bg-brand-deep-teal text-white hover:bg-brand-sky-blue transition-colors duration-200 py-3 text-sm font-medium border-0 shadow-none hover:shadow-none"
                       >
-                        <Link href={`/excursions/${excursion.slug}`}>
-                          <span className="relative z-10">Ver Detalles</span>
-                        </Link>
+                        <Link href={`/excursions/${excursion.slug}`}>Ver Detalles</Link>
                       </Button>
                     </CardContent>
                   </Card>
@@ -283,9 +239,7 @@ export default function HomePage() {
                   },
                 ].map((item) => (
                   <motion.li key={item.title} variants={itemVariants} className="flex items-start gap-4">
-                    <div className="mt-1 rounded-full bg-gradient-to-br from-brand-sky-blue/20 to-brand-deep-teal/20 p-3 text-brand-deep-teal shadow-sm">
-                      {item.icon}
-                    </div>
+                    <div className="mt-1 rounded-full bg-brand-sky-blue/10 p-3 text-brand-deep-teal">{item.icon}</div>
                     <div>
                       <h4 className="font-heading text-lg font-semibold text-brand-deep-teal">{item.title}</h4>
                       <p className="text-gray-600">{item.desc}</p>
@@ -301,7 +255,7 @@ export default function HomePage() {
               className="relative aspect-square overflow-hidden rounded-xl shadow-lg"
             >
               <Image
-                src="/grupo-excursion-expedicion-andina.jpg"
+                src="/grupo-excursion-expedicion-andina.webp"
                 alt="Grupo de excursionistas felices"
                 fill
                 sizes="(max-width: 768px) 100vw, 50vw"
