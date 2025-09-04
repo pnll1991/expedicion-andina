@@ -1,6 +1,6 @@
 "use client"
 
-import { useRef } from "react"
+import { useRef, useState, useEffect } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
@@ -8,9 +8,21 @@ import { Card, CardContent } from "@/components/ui/card"
 import { MapPinIcon, CalendarIcon, UsersIcon, ChevronDownIcon, ChevronUpIcon } from "lucide-react"
 import { motion, useScroll, useTransform, useInView } from "framer-motion"
 import { allExcursions } from "@/data/excursions"
+import { HeroSkeleton } from "@/components/skeletons/hero-skeleton"
+import { ExcursionCardSkeleton } from "@/components/skeletons/excursion-card-skeleton"
+import { AboutSkeleton } from "@/components/skeletons/about-skeleton"
 
 export default function HomePage() {
-  /*—  Bloquear scroll cuando el menú mobile está abierto —*/
+  const [isLoading, setIsLoading] = useState(true)
+
+  useEffect(() => {
+    // Simular carga inicial
+    const timer = setTimeout(() => {
+      setIsLoading(false)
+    }, 1500)
+
+    return () => clearTimeout(timer)
+  }, [])
 
   /*— Hero —*/
   const subtitle = "Tu puerta de entrada a la aventura: montañismo, trekking, y cursos especializados."
@@ -18,7 +30,7 @@ export default function HomePage() {
   /*— Utilidades varias —*/
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" })
 
-  /*— Parallax para la imagen de “Sobre Nosotros” —*/
+  /*— Parallax para la imagen de "Sobre Nosotros" —*/
   const aboutImgRef = useRef<HTMLDivElement>(null)
   const { scrollYProgress } = useScroll({
     target: aboutImgRef,
@@ -54,6 +66,33 @@ export default function HomePage() {
   const featuredExcursions = allExcursions.filter(
     (x) => !["kayak-lago-montana", "caminata-bosque-alpino", "escalada-atardecer"].includes(x.slug),
   )
+
+  if (isLoading) {
+    return (
+      <div className="flex min-h-dvh flex-col bg-brand-light-sand">
+        <main className="flex-1">
+          <HeroSkeleton />
+
+          {/* Excursiones Skeleton */}
+          <section className="bg-white py-16 md:py-24">
+            <div className="container px-4 md:px-6">
+              <div className="mb-12 space-y-3 text-center">
+                <div className="h-10 w-80 mx-auto bg-gray-200 animate-pulse rounded-md" />
+                <div className="h-6 w-96 mx-auto bg-gray-200 animate-pulse rounded-md" />
+              </div>
+              <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+                {[1, 2, 3, 4].map((item) => (
+                  <ExcursionCardSkeleton key={item} />
+                ))}
+              </div>
+            </div>
+          </section>
+
+          <AboutSkeleton />
+        </main>
+      </div>
+    )
+  }
 
   return (
     <div className="flex min-h-dvh flex-col bg-brand-light-sand">
@@ -107,9 +146,12 @@ export default function HomePage() {
               <Button
                 asChild
                 size="lg"
-                className="h-auto transform px-8 py-3 font-bold transition-transform hover:scale-105 bg-brand-sky-blue text-brand-deep-teal hover:bg-brand-sky-blue/90"
+                className="relative overflow-hidden bg-gradient-to-r from-brand-sky-blue to-brand-deep-teal text-white font-bold px-8 py-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 hover:from-brand-deep-teal hover:to-brand-sky-blue border-0"
               >
-                <Link href="#excursions">Explorar Excursiones</Link>
+                <Link href="#excursions">
+                  <span className="relative z-10">Explorar Excursiones</span>
+                  <div className="absolute inset-0 bg-white/20 opacity-0 hover:opacity-100 transition-opacity duration-300" />
+                </Link>
               </Button>
             </motion.div>
           </div>
@@ -118,7 +160,7 @@ export default function HomePage() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 1.5, duration: 1 }}
-            className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20" // Changed bottom-16 to bottom-4 and added z-20
+            className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20"
           >
             <motion.div
               animate={{ y: [0, 10, 0] }}
@@ -185,10 +227,11 @@ export default function HomePage() {
 
                       <Button
                         asChild
-                        variant="outline"
-                        className="w-full bg-transparent border-brand-sky-blue text-brand-sky-blue hover:bg-brand-sky-blue hover:text-brand-deep-teal"
+                        className="w-full relative overflow-hidden bg-gradient-to-r from-transparent to-transparent border-2 border-brand-deep-teal text-brand-deep-teal font-semibold py-3 rounded-xl hover:bg-gradient-to-r hover:from-brand-deep-teal hover:to-brand-sky-blue hover:text-white hover:border-transparent transition-all duration-300 transform hover:scale-[1.02] shadow-sm hover:shadow-md"
                       >
-                        <Link href={`/excursions/${excursion.slug}`}>Ver Detalles</Link>
+                        <Link href={`/excursions/${excursion.slug}`}>
+                          <span className="relative z-10">Ver Detalles</span>
+                        </Link>
                       </Button>
                     </CardContent>
                   </Card>
@@ -240,7 +283,9 @@ export default function HomePage() {
                   },
                 ].map((item) => (
                   <motion.li key={item.title} variants={itemVariants} className="flex items-start gap-4">
-                    <div className="mt-1 rounded-full bg-brand-sky-blue/10 p-3 text-brand-sky-blue">{item.icon}</div>
+                    <div className="mt-1 rounded-full bg-gradient-to-br from-brand-sky-blue/20 to-brand-deep-teal/20 p-3 text-brand-deep-teal shadow-sm">
+                      {item.icon}
+                    </div>
                     <div>
                       <h4 className="font-heading text-lg font-semibold text-brand-deep-teal">{item.title}</h4>
                       <p className="text-gray-600">{item.desc}</p>

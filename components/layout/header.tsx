@@ -35,8 +35,6 @@ export function Header() {
           <span className="font-heading font-bold text-xl text-brand-deep-teal">Expedición Andina</span>
         </Link>
         <div className="flex items-center gap-4">
-          {" "}
-          {/* This div now groups nav and mobile button */}
           <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-brand-deep-teal">
             <Link href="/#excursions" className="hover:text-brand-sky-blue transition-colors" prefetch={false}>
               Excursiones
@@ -46,17 +44,18 @@ export function Header() {
             </Link>
             <Button
               asChild
-              className="bg-primary text-primary-foreground hover:bg-primary/90 transition-all duration-300 transform hover:scale-105"
+              className="relative overflow-hidden bg-gradient-to-r from-brand-sky-blue to-brand-deep-teal text-white font-semibold px-6 py-2 rounded-full shadow-md hover:shadow-lg transition-all duration-300 transform hover:scale-105 hover:from-brand-deep-teal hover:to-brand-sky-blue border-0"
             >
               <Link href="https://wa.me/5492625642793" target="_blank" rel="noopener noreferrer">
-                Contactanos
+                <span className="relative z-10">Contactanos</span>
+                <div className="absolute inset-0 bg-white/10 opacity-0 hover:opacity-100 transition-opacity duration-300" />
               </Link>
             </Button>
           </nav>
           <Button
             variant="outline"
             size="icon"
-            className="md:hidden border-gray-300 text-brand-deep-teal hover:bg-gray-100 bg-transparent"
+            className="md:hidden border-2 border-brand-deep-teal/20 text-brand-deep-teal hover:bg-gradient-to-r hover:from-brand-sky-blue/10 hover:to-brand-deep-teal/10 hover:border-brand-sky-blue bg-transparent rounded-xl transition-all duration-300"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             aria-label="Toggle menu"
           >
@@ -76,14 +75,14 @@ export function Header() {
             <nav className="flex flex-col items-center gap-6 py-8">
               <Link
                 href="/#excursions"
-                className="text-brand-deep-teal font-medium text-lg"
+                className="text-brand-deep-teal font-medium text-lg hover:text-brand-sky-blue transition-colors"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Excursiones
               </Link>
               <Link
                 href="/#about"
-                className="text-brand-deep-teal font-medium text-lg"
+                className="text-brand-deep-teal font-medium text-lg hover:text-brand-sky-blue transition-colors"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Sobre Nosotros
@@ -92,10 +91,11 @@ export function Header() {
                 href="https://wa.me/5492625642793"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-brand-deep-teal font-medium text-lg"
+                className="relative overflow-hidden bg-gradient-to-r from-brand-sky-blue to-brand-deep-teal text-white font-semibold px-8 py-3 rounded-full shadow-md hover:shadow-lg transition-all duration-300 transform hover:scale-105"
                 onClick={() => setIsMenuOpen(false)}
               >
-                Contactanos
+                <span className="relative z-10">Contactanos</span>
+                <div className="absolute inset-0 bg-white/10 opacity-0 hover:opacity-100 transition-opacity duration-300" />
               </Link>
             </nav>
           </motion.div>
