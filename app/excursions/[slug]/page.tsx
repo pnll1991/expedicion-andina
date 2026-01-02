@@ -61,31 +61,59 @@ export default function ExcursionDetailPage({ params }: { params: { slug: string
                 </ul>
               </div>
 
-              <div className="space-y-4">
-                <h2 className="text-2xl font-semibold text-brand-deep-teal">Precio</h2>
-                {typeof excursion.details.priceDetails === "string" ? (
-                  <p className="text-gray-600">{excursion.details.priceDetails}</p>
-                ) : (
-                  <div className="space-y-1 text-gray-600">
-                    <p>
-                      <strong>Alojamiento:</strong> {excursion.details.priceDetails.accommodation}
-                    </p>
-                    <p>
-                      <strong>No incluye:</strong> {excursion.details.priceDetails.notIncluded}
-                    </p>
-                    <p>
-                      <strong>Preventa:</strong> {excursion.details.priceDetails.preventa}
-                    </p>
-                    <p>
-                      <strong>Contado:</strong> {excursion.details.priceDetails.contado}
-                    </p>
-                    <p>
-                      <strong>Cuotas:</strong> {excursion.details.priceDetails.cuotas}
-                    </p>
-                  </div>
-                )}
-                <p className="text-xl font-bold text-brand-deep-teal">Precio Total: {excursion.price}</p>
-              </div>
+              {excursion.price && (
+                <div className="space-y-4">
+                  <h2 className="text-2xl font-semibold text-brand-deep-teal">Precio</h2>
+                  {typeof excursion.details.priceDetails === "string" ? (
+                    <p className="text-gray-600">{excursion.details.priceDetails}</p>
+                  ) : (
+                    <div className="space-y-1 text-gray-600">
+                      <p>
+                        <strong>Alojamiento:</strong> {excursion.details.priceDetails.accommodation}
+                      </p>
+                      <p>
+                        <strong>No incluye:</strong> {excursion.details.priceDetails.notIncluded}
+                      </p>
+                      <p>
+                        <strong>Preventa:</strong> {excursion.details.priceDetails.preventa}
+                      </p>
+                      <p>
+                        <strong>Contado:</strong> {excursion.details.priceDetails.contado}
+                      </p>
+                      <p>
+                        <strong>Cuotas:</strong> {excursion.details.priceDetails.cuotas}
+                      </p>
+                    </div>
+                  )}
+                  <p className="text-xl font-bold text-brand-deep-teal">Precio Total: {excursion.price}</p>
+                </div>
+              )}
+              {!excursion.price && excursion.details.priceDetails && (
+                <div className="space-y-4">
+                  <h2 className="text-2xl font-semibold text-brand-deep-teal">Información de Precio</h2>
+                  {typeof excursion.details.priceDetails === "string" ? (
+                    <p className="text-gray-600">{excursion.details.priceDetails}</p>
+                  ) : (
+                    <div className="space-y-1 text-gray-600">
+                      <p>
+                        <strong>Alojamiento:</strong> {excursion.details.priceDetails.accommodation}
+                      </p>
+                      <p>
+                        <strong>No incluye:</strong> {excursion.details.priceDetails.notIncluded}
+                      </p>
+                      <p>
+                        <strong>Preventa:</strong> {excursion.details.priceDetails.preventa}
+                      </p>
+                      <p>
+                        <strong>Contado:</strong> {excursion.details.priceDetails.contado}
+                      </p>
+                      <p>
+                        <strong>Cuotas:</strong> {excursion.details.priceDetails.cuotas}
+                      </p>
+                    </div>
+                  )}
+                </div>
+              )}
 
               <div className="space-y-4">
                 <h2 className="text-2xl font-semibold text-brand-deep-teal">Qué llevar</h2>
@@ -100,7 +128,7 @@ export default function ExcursionDetailPage({ params }: { params: { slug: string
                 <Button
                   asChild
                   size="lg"
-                  className="bg-green-600 text-white hover:bg-green-700 transition-colors duration-200 px-8 py-4 text-lg font-semibold border-0 shadow-none hover:shadow-none"
+                  className="bg-gradient-to-r from-green-500 to-emerald-600 text-white hover:from-green-600 hover:to-emerald-700 transition-all duration-300 px-8 py-4 text-lg font-bold border-0 shadow-lg hover:shadow-xl hover:scale-105 transform"
                 >
                   <Link href={whatsappLink} target="_blank" rel="noopener noreferrer">
                     Reservar por WhatsApp

@@ -8,6 +8,7 @@ import { ImageWithLoader } from "@/components/ui/image-with-loader"
 import { MapPinIcon, CalendarIcon, UsersIcon, ChevronDownIcon, ChevronUpIcon } from "lucide-react"
 import { motion, useScroll, useTransform, useInView } from "framer-motion"
 import { allExcursions } from "@/data/excursions"
+import { GoogleReviewsCarousel } from "@/components/google-reviews-carousel"
 
 export default function HomePage() {
   /*—  Bloquear scroll cuando el menú mobile está abierto —*/
@@ -25,6 +26,15 @@ export default function HomePage() {
     offset: ["start end", "end start"],
   })
   const rotate = useTransform(scrollYProgress, [0, 1], ["-5deg", "5deg"])
+  
+  /*— Parallax para el Hero —*/
+  const heroSectionRef = useRef<HTMLElement | null>(null)
+  const { scrollYProgress: heroScrollYProgress } = useScroll({
+    target: heroSectionRef,
+    offset: ["start start", "end start"],
+  })
+  const heroScale = useTransform(heroScrollYProgress, [0, 1], [1, 1.1])
+  const heroOpacity = useTransform(heroScrollYProgress, [0, 0.5], [1, 0])
 
   /*— Variants de animaciones reutilizables —*/
   const containerVariants = {
@@ -51,20 +61,29 @@ export default function HomePage() {
   const isAbListIn = useInView(abListRef, { once: true, amount: 0.3 })
 
   /*— Excursiones destacadas (omitimos algunas) —*/
-  const featuredExcursions = allExcursions.filter(
-    (x) => !["kayak-lago-montana", "caminata-bosque-alpino", "escalada-atardecer"].includes(x.slug),
-  )
+  const featuredExcursions = allExcursions
+    .filter((x) => !["kayak-lago-montana", "caminata-bosque-alpino", "escalada-atardecer"].includes(x.slug))
+    .sort((a, b) => {
+      // Ordenar por pinned primero
+      const aPinned = (a as any).pinned ? 0 : 1
+      const bPinned = (b as any).pinned ? 0 : 1
+      return aPinned - bPinned
+    })
 
   return (
     <div className="flex min-h-dvh flex-col bg-brand-light-sand">
       <main className="flex-1">
         {/* ---------------- HERO ---------------- */}
-        <section className="relative flex h-[85vh] w-full items-center justify-center text-center text-white">
+        <section ref={heroSectionRef as any} className="relative flex h-[85vh] w-full items-center justify-center text-center text-white overflow-hidden">
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1, ease: "easeOut" }}
             className="absolute inset-0"
+            style={{
+              scale: heroScale,
+              opacity: heroOpacity,
+            }}
           >
             <ImageWithLoader
               src="/hero-montanas-nubladas-patagonia.webp"
@@ -73,10 +92,125 @@ export default function HomePage() {
               priority
               sizes="100vw"
               className="object-cover"
+              style={{ transform: "scale(1.1)" }}
               quality={85}
             />
           </motion.div>
-          <div className="absolute inset-0 bg-black/40" />
+          
+          {/* Animated gradient overlay */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/40 to-black/60" />
+          <motion.div
+            className="absolute inset-0 bg-gradient-to-r from-transparent via-orange-500/10 to-transparent"
+            animate={{
+              x: ["-100%", "200%"],
+            }}
+            transition={{
+              duration: 8,
+              repeat: Number.POSITIVE_INFINITY,
+              ease: "linear",
+            }}
+          />
+          
+          {/* Floating particles (stars/lights) */}
+          <div className="absolute inset-0 overflow-hidden pointer-events-none">
+            {Array.from({ length: 30 }).map((_, i) => (
+              <motion.div
+                key={i}
+                className="absolute rounded-full bg-white/30"
+                style={{
+                  width: Math.random() * 4 + 2,
+                  height: Math.random() * 4 + 2,
+                  left: `${Math.random() * 100}%`,
+                  top: `${Math.random() * 100}%`,
+                }}
+                animate={{
+                  opacity: [0.3, 1, 0.3],
+                  scale: [1, 1.5, 1],
+                  y: [0, -20, 0],
+                }}
+                transition={{
+                  duration: Math.random() * 3 + 2,
+                  repeat: Number.POSITIVE_INFINITY,
+                  delay: Math.random() * 2,
+                  ease: "easeInOut",
+                }}
+              />
+            ))}
+          </div>
+          
+          {/* Fog/Mist effect */}
+          <div className="absolute inset-0 overflow-hidden pointer-events-none">
+            {Array.from({ length: 3 }).map((_, i) => (
+              <motion.div
+                key={i}
+                className="absolute h-full w-full bg-gradient-to-r from-transparent via-white/5 to-transparent"
+                style={{
+                  left: `${i * 33}%`,
+                }}
+                animate={{
+                  x: ["-100%", "300%"],
+                }}
+                transition={{
+                  duration: 15 + i * 5,
+                  repeat: Number.POSITIVE_INFINITY,
+                  delay: i * 3,
+                  ease: "linear",
+                }}
+              />
+            ))}
+          </div>
+          
+          {/* Mountain silhouette effect */}
+          <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-black/20 to-transparent pointer-events-none" />
+          
+          {/* Spotlight effect (simulating trekking light) */}
+          <motion.div
+            className="absolute inset-0 pointer-events-none"
+            style={{
+              background: "radial-gradient(circle at 30% 40%, transparent 20%, rgba(0,0,0,0.3) 50%)",
+            }}
+            animate={{
+              background: [
+                "radial-gradient(circle at 30% 40%, transparent 20%, rgba(0,0,0,0.3) 50%)",
+                "radial-gradient(circle at 70% 60%, transparent 20%, rgba(0,0,0,0.3) 50%)",
+                "radial-gradient(circle at 30% 40%, transparent 20%, rgba(0,0,0,0.3) 50%)",
+              ],
+            }}
+            transition={{
+              duration: 10,
+              repeat: Number.POSITIVE_INFINITY,
+              ease: "easeInOut",
+            }}
+          />
+          
+          {/* Glowing trail effect */}
+          <div className="absolute inset-0 pointer-events-none opacity-30">
+            <motion.div
+              className="absolute top-1/2 left-1/4 w-1 h-32 bg-gradient-to-b from-transparent via-orange-400/50 to-transparent blur-sm"
+              animate={{
+                y: [-20, 20, -20],
+                opacity: [0.3, 0.6, 0.3],
+              }}
+              transition={{
+                duration: 3,
+                repeat: Number.POSITIVE_INFINITY,
+                ease: "easeInOut",
+              }}
+            />
+            <motion.div
+              className="absolute top-1/3 right-1/3 w-1 h-24 bg-gradient-to-b from-transparent via-yellow-400/40 to-transparent blur-sm"
+              animate={{
+                y: [-15, 15, -15],
+                opacity: [0.2, 0.5, 0.2],
+              }}
+              transition={{
+                duration: 4,
+                repeat: Number.POSITIVE_INFINITY,
+                delay: 1,
+                ease: "easeInOut",
+              }}
+            />
+          </div>
           <div className="relative z-10 container px-4 md:px-6">
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
@@ -107,7 +241,7 @@ export default function HomePage() {
               <Button
                 asChild
                 size="lg"
-                className="bg-white text-brand-deep-teal hover:bg-brand-light-sand transition-colors duration-200 px-8 py-4 text-lg font-semibold border-0 shadow-none hover:shadow-none"
+                className="bg-gradient-to-r from-orange-500 to-red-500 text-white hover:from-orange-600 hover:to-red-600 transition-all duration-300 px-8 py-4 text-lg font-bold border-0 shadow-lg hover:shadow-xl hover:scale-105 transform"
               >
                 <Link href="#excursions">Explorar Excursiones</Link>
               </Button>
@@ -155,9 +289,9 @@ export default function HomePage() {
               className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3"
             >
               {featuredExcursions.map((excursion) => (
-                <motion.div key={excursion.slug} variants={itemVariants}>
-                  <Card className="group overflow-hidden border-gray-200 bg-white transition-all duration-300 hover:-translate-y-2 hover:shadow-xl">
-                    <div className="relative h-56 overflow-hidden">
+                <motion.div key={excursion.slug} variants={itemVariants} className="flex h-full">
+                  <Card className="group flex h-full flex-col overflow-hidden border-gray-200 bg-white transition-all duration-300 hover:-translate-y-2 hover:shadow-xl">
+                    <div className="relative h-56 overflow-hidden flex-shrink-0">
                       <ImageWithLoader
                         src={excursion.img || "/placeholder.svg"}
                         alt={excursion.title}
@@ -165,29 +299,33 @@ export default function HomePage() {
                         sizes="(max-width: 768px) 100vw, (max-width:1200px) 50vw, 33vw"
                         className="object-cover transition-transform duration-300 group-hover:scale-105"
                       />
-                      <div className="absolute top-2 right-2 z-10 flex flex-col gap-1">
-                        <span className="rotate-3 rounded-full bg-red-600 px-2 py-1 text-xs font-bold text-white shadow-md">
-                          NUEVA
-                        </span>
-                        <span className="-rotate-3 rounded-full bg-yellow-400 px-2 py-1 text-xs font-bold text-brand-deep-teal shadow-md">
-                          CUPOS LIMITADOS
-                        </span>
-                      </div>
+                      {(excursion as any).showBadges !== false && (
+                        <div className="absolute top-2 right-2 z-10 flex flex-col gap-1">
+                          <span className="rotate-3 rounded-full bg-red-600 px-2 py-1 text-xs font-bold text-white shadow-md">
+                            NUEVA
+                          </span>
+                          <span className="-rotate-3 rounded-full bg-yellow-400 px-2 py-1 text-xs font-bold text-brand-deep-teal shadow-md">
+                            CUPOS LIMITADOS
+                          </span>
+                        </div>
+                      )}
                     </div>
 
-                    <CardContent className="space-y-4 p-6">
+                    <CardContent className="flex flex-1 flex-col space-y-4 p-6">
                       <h3 className="font-heading text-xl font-bold text-brand-deep-teal">{excursion.title}</h3>
-                      <p className="text-gray-600">{excursion.desc}</p>
-                      <div className="flex items-center justify-between pt-2 text-sm text-gray-500">
+                      <p className="text-gray-600 flex-grow">{excursion.desc}</p>
+                      <div className="flex items-center justify-between pt-2 text-sm text-gray-500 flex-shrink-0">
                         <span>{excursion.duration}</span>
-                        <span className="text-lg font-bold text-brand-deep-teal">{excursion.price}</span>
+                        {excursion.price && (
+                          <span className="text-lg font-bold text-brand-deep-teal">{excursion.price}</span>
+                        )}
                       </div>
 
                       <Button
                         asChild
-                        className="w-full bg-brand-deep-teal text-white hover:bg-brand-sky-blue transition-colors duration-200 py-3 text-sm font-medium border-0 shadow-none hover:shadow-none"
+                        className="w-full bg-gradient-to-r from-green-500 to-emerald-600 text-white hover:from-green-600 hover:to-emerald-700 transition-all duration-300 py-3 text-sm font-semibold border-0 shadow-md hover:shadow-lg hover:scale-105 transform flex-shrink-0"
                       >
-                        <Link href={`/excursions/${excursion.slug}`}>Ver Detalles</Link>
+                        <Link href={`/excursions/${excursion.slug}`}>Ver más info</Link>
                       </Button>
                     </CardContent>
                   </Card>
@@ -225,7 +363,8 @@ export default function HomePage() {
                   {
                     icon: <MapPinIcon className="h-6 w-6" />,
                     title: "Guías Locales Expertos",
-                    desc: "Nuestros guías conocen el terreno, la historia y los secretos de la región.",
+                    desc: "Nuestros guías habilitados conocen el terreno, la historia y los secretos de la región.",
+                    badge: "Habilitados",
                   },
                   {
                     icon: <CalendarIcon className="h-6 w-6" />,
@@ -240,9 +379,26 @@ export default function HomePage() {
                 ].map((item) => (
                   <motion.li key={item.title} variants={itemVariants} className="flex items-start gap-4">
                     <div className="mt-1 rounded-full bg-brand-sky-blue/10 p-3 text-brand-deep-teal">{item.icon}</div>
-                    <div>
-                      <h4 className="font-heading text-lg font-semibold text-brand-deep-teal">{item.title}</h4>
-                      <p className="text-gray-600">{item.desc}</p>
+                    <div className="flex-1">
+                      <div className="flex items-center gap-2 mb-1">
+                        <h4 className="font-heading text-lg font-semibold text-brand-deep-teal">{item.title}</h4>
+                        {item.badge && (
+                          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-green-100 text-green-800 border border-green-200">
+                            {item.badge}
+                          </span>
+                        )}
+                      </div>
+                      <p className="text-gray-600">
+                        {item.desc.includes("habilitados") ? (
+                          <>
+                            {item.desc.split("habilitados")[0]}
+                            <span className="font-semibold text-brand-deep-teal">habilitados</span>
+                            {item.desc.split("habilitados")[1]}
+                          </>
+                        ) : (
+                          item.desc
+                        )}
+                      </p>
                     </div>
                   </motion.li>
                 ))}
@@ -279,6 +435,34 @@ export default function HomePage() {
               <ChevronUpIcon className="h-8 w-8 text-brand-deep-teal" />
             </motion.div>
           </motion.div>
+        </section>
+
+        {/* ---------------- RESEÑAS DE GOOGLE ---------------- */}
+        <section id="reviews" className="bg-white py-16 md:py-24">
+          <div className="container px-4 md:px-6">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="mb-12 text-center"
+            >
+              <h2 className="font-bold text-brand-deep-teal text-3xl md:text-4xl mb-3">
+                Quienes ya pisaron el sendero
+              </h2>
+              <p className="mx-auto max-w-2xl text-gray-600">
+                Descubre las experiencias de quienes ya vivieron la aventura con nosotros
+              </p>
+            </motion.div>
+
+            <div className="max-w-5xl mx-auto">
+              <GoogleReviewsCarousel
+                rating={5.0}
+                totalReviews={25}
+                googleMapsUrl="https://maps.app.goo.gl/DjfZtzKqLkPWHVVg8"
+              />
+            </div>
+          </div>
         </section>
       </main>
     </div>
