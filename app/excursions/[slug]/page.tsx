@@ -1,7 +1,7 @@
-import Image from "next/image"
 import { notFound } from "next/navigation"
 import { allExcursions } from "@/data/excursions"
 import { Button } from "@/components/ui/button"
+import { ImageWithLoader } from "@/components/ui/image-with-loader"
 import Link from "next/link"
 
 // Generate static params for all excursions
@@ -110,7 +110,7 @@ export default function ExcursionDetailPage({ params }: { params: { slug: string
             </div>
 
             <div className="relative h-[400px] w-full overflow-hidden rounded-xl shadow-lg order-1 lg:order-2 lg:sticky lg:top-8">
-              <Image
+              <ImageWithLoader
                 src={excursion.img || "/placeholder.svg"}
                 alt={excursion.title}
                 fill

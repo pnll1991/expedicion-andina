@@ -2,9 +2,9 @@
 
 import { useRef } from "react"
 import Link from "next/link"
-import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
+import { ImageWithLoader } from "@/components/ui/image-with-loader"
 import { MapPinIcon, CalendarIcon, UsersIcon, ChevronDownIcon, ChevronUpIcon } from "lucide-react"
 import { motion, useScroll, useTransform, useInView } from "framer-motion"
 import { allExcursions } from "@/data/excursions"
@@ -66,7 +66,7 @@ export default function HomePage() {
             transition={{ duration: 1, ease: "easeOut" }}
             className="absolute inset-0"
           >
-            <Image
+            <ImageWithLoader
               src="/hero-montanas-nubladas-patagonia.webp"
               alt="Impresionantes montañas de la Patagonia"
               fill
@@ -158,7 +158,7 @@ export default function HomePage() {
                 <motion.div key={excursion.slug} variants={itemVariants}>
                   <Card className="group overflow-hidden border-gray-200 bg-white transition-all duration-300 hover:-translate-y-2 hover:shadow-xl">
                     <div className="relative h-56 overflow-hidden">
-                      <Image
+                      <ImageWithLoader
                         src={excursion.img || "/placeholder.svg"}
                         alt={excursion.title}
                         fill
@@ -254,7 +254,7 @@ export default function HomePage() {
               style={{ rotate }}
               className="relative aspect-square overflow-hidden rounded-xl shadow-lg"
             >
-              <Image
+              <ImageWithLoader
                 src="/grupo-excursion-expedicion-andina.webp"
                 alt="Grupo de excursionistas felices"
                 fill

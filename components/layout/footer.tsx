@@ -1,6 +1,6 @@
 "use client"
 
-import Image from "next/image"
+import { ImageWithLoader } from "@/components/ui/image-with-loader"
 import { MessageCircle, Instagram, Youtube } from "lucide-react"
 
 export function Footer() {
@@ -22,7 +22,7 @@ export function Footer() {
         <div className="container mx-auto px-4 md:px-6 py-12 flex flex-col md:flex-row items-start justify-between gap-8">
           {/* Sección izquierda: Logo y descripción Expedición Andina */}
           <div className="flex flex-col items-start gap-4 max-w-lg">
-            <Image
+            <ImageWithLoader
               src="/expedicion-andina-logo-white-footer.png"
               alt="Expedición Andina Logo"
               width={48} // Tamaño más pequeño
@@ -70,7 +70,7 @@ export function Footer() {
             <p>&copy; {new Date().getFullYear()} Expedición Andina. Todos los derechos reservados.</p>
             <div className="flex items-center gap-2">
               <span>Diseñado por KuatroMetric</span>
-              <Image
+              <ImageWithLoader
                 src="/kuatro-metric-logo.avif"
                 alt="KuatroMetric Logo"
                 width={20}

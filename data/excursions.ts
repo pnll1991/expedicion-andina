@@ -4,7 +4,7 @@ export const allExcursions = [
     title: "Kayak en Lago de Montaña",
     desc: "Rema por aguas cristalinas rodeado de picos impresionantes.",
     duration: "Día Completo",
-    price: "$120",
+    price: "$120 USD",
     img: "/kayak-lago-montana-excursion.webp",
     details: {
       dates: "Fechas disponibles todo el año. Consultar disponibilidad.",
@@ -36,7 +36,7 @@ export const allExcursions = [
     title: "Caminata por Bosque Alpino",
     desc: "Explora senderos ocultos y descubre la diversa flora y fauna.",
     duration: "4 Horas",
-    price: "$75",
+    price: "$75 USD",
     img: "/caminata-bosque-alpino-excursion.webp",
     details: {
       dates: "Salidas diarias, consultar horarios.",
@@ -63,7 +63,7 @@ export const allExcursions = [
     title: "Escalada al Atardecer",
     desc: "Ponte a prueba y sé recompensado con una vista inolvidable del atardecer.",
     duration: "3 Horas",
-    price: "$90",
+    price: "$90 USD",
     img: "/escalada-atardecer-excursion.webp",
     details: {
       dates: "Salidas al atardecer, consultar horarios según estación.",
@@ -95,7 +95,7 @@ export const allExcursions = [
     title: "Viaje a Chile – Región del Maule",
     desc: "Una aventura transandina con trekking, paisajes frondosos y cultura local.",
     duration: "5-6 Días",
-    price: "$100.000 ARS",
+    price: "$100 USD",
     img: "/cascada-region-maule-chile.webp",
     details: {
       dates: [
@@ -123,7 +123,7 @@ export const allExcursions = [
         accommodation: "$13.000 CLP por noche (estimado), a dividir",
         notIncluded: "No incluye comidas, combustible ni ingresos a parques (bajo costo)",
         preventa: "Preventa hasta el 31 de agosto",
-        contado: "$100.000 ARS",
+        contado: "$100 USD",
         cuotas: "En cuotas: 5x20 USD (u otra combinación)",
       },
       whatToBring: [
@@ -146,7 +146,7 @@ export const allExcursions = [
     title: "Naciente del Atuel – Cordillera del Sosneado",
     desc: "Explora el origen del río Atuel en una aventura de trekking o cabalgata en la cordillera mendocina.",
     duration: "3 Días / 2 Noches",
-    price: "Desde $300.000 ARS",
+    price: "Desde $300 USD",
     img: "/naciente-rio-atuel-cascada.webp",
     details: {
       dates: "21 al 23 de febrero",
@@ -172,8 +172,8 @@ export const allExcursions = [
       priceDetails: {
         notIncluded: "No incluye snacks, bebidas, combustible ni alquiler de equipo.",
         preventa: "Hasta 31 de agosto:",
-        trekking: "$300.000 ARS o 6x50 USD",
-        cabalgata: "$380.000 ARS o 6x64 USD",
+        trekking: "$300 USD o 6x50 USD",
+        cabalgata: "$380 USD o 6x64 USD",
         paymentInfo: "(Cotiza en dólar blue. Acepta tarjetas)",
       },
       whatToBring: [
@@ -197,7 +197,7 @@ export const allExcursions = [
     title: "Avión de los Uruguayos – Cordillera del Sosneado",
     desc: "Una expedición histórica al sitio del accidente del vuelo 571, conocido como 'El Milagro de los Andes'.",
     duration: "3 Días / 2 Noches",
-    price: "Desde $400.000 ARS",
+    price: "Desde $400 USD",
     img: "/grupo-avion-uruguayos-andes.webp",
     details: {
       dates: "23 al 25 de enero (3 días / 2 noches)",
@@ -222,11 +222,11 @@ export const allExcursions = [
         notIncluded: "No incluye snacks, bebidas, combustible ni alquiler de equipo (puede conseguirse prestado).",
         preventa: "Preventa hasta el 31 de agosto",
         trekking: {
-          contado: "$400.000 ARS",
+          contado: "$400 USD",
           cuotas: "6x67 USD (total 400 USD)",
         },
         cabalgata: {
-          contado: "$500.000 ARS",
+          contado: "$500 USD",
           cuotas: "6x84 USD (total 500 USD)",
         },
         paymentInfo:
@@ -253,7 +253,7 @@ export const allExcursions = [
     title: "Laguna Turquesa – Cordillera de Malargüe",
     desc: "Una expedición a la impresionante Laguna Turquesa, pasando por cerros y valles cordilleranos.",
     duration: "3 Días / 2 Noches",
-    price: "Desde $200.000 ARS",
+    price: "Desde $200 USD",
     img: "/laguna-turquesa-malargue-reflejo.webp",
     details: {
       dates: [
@@ -280,11 +280,11 @@ export const allExcursions = [
         notIncluded: "No incluye comidas, bebidas, combustible ni equipo personal (puede alquilarse o prestarse).",
         preventa: "Preventa hasta el 31 de agosto",
         trekking: {
-          contado: "$200.000 ARS",
+          contado: "$200 USD",
           cuotas: "6x33 USD (total 200 USD)",
         },
         cabalgata: {
-          contado: "$320.000 ARS",
+          contado: "$320 USD",
           cuotas: "6x53 USD (total 320 USD)",
         },
         paymentInfo: "Pago en pesos o dólares, con tarjeta hasta 12 cuotas. Cotiza al dólar blue promedio.",

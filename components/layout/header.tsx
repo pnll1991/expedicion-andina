@@ -2,8 +2,8 @@
 
 import { useState, useEffect } from "react"
 import Link from "next/link"
-import Image from "next/image"
 import { Button } from "@/components/ui/button"
+import { ImageWithLoader } from "@/components/ui/image-with-loader"
 import { MenuIcon, XIcon } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
 
@@ -28,7 +28,7 @@ export function Header() {
           <div className="relative">
             <div className="absolute inset-0 bg-gradient-to-br from-brand-sky-blue/30 to-brand-deep-teal/30 rounded-full blur-sm group-hover:blur-md transition-all duration-300" />
             <div className="relative w-12 h-12 rounded-full overflow-hidden border-2 border-white/50 shadow-lg group-hover:shadow-xl transition-all duration-300 transform group-hover:scale-105">
-              <Image
+              <ImageWithLoader
                 src="/expedicion-andina-logo-header.webp"
                 alt="Expedición Andina Logo Montaña y Brújula"
                 width={48}
